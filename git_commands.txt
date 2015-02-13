@@ -1,6 +1,5 @@
  typical new work sequence in GIT:
  --------------------------------
-
  git clone url  //clone repository to your local machine
  git branch     //check the current active branch and list all other branches
  git log        //list all work log
@@ -9,6 +8,6 @@
  git push --set-upstream origin new_branch_name // set upstream branch same as local branch. Don’t push directly to master
  git add   //stage changes
  git commit  //commit changes
- git push  //push changes to upstream branch. before this command make sure that upstream set correcly.
+ git push
+ // Don’t push directly to master
  go to github.com and create a pull request
- Someone else do the merge
