@@ -9,7 +9,7 @@ git push -u //set remote tracking branch to the same as local branch
  // Don’t push directly to master
  git add   //stage changes
  git commit  //commit changes
- git push  //push changes to upstream branch. before this command make sure that upstream set correcly.
+ git push  --set-upstream-to=origin/branch_name //push changes to upstream branch. before this command make sure that upstream set correcly.
  go to github.com and create a pull request
  git pull  // get changes from others, make sure that pulling from origin/master.
  do git pull periodically to ensure that you are up to date with other’s changes.
