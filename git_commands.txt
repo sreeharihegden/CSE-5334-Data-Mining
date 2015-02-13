@@ -5,10 +5,11 @@
  git log        //list all work log
  git status     //list status of current local repo
  git checkout -b new_branch_name   //create a new branch
-git push -u //set remote tracking branch to the same as local branch
- // Don’t push directly to master
  git add   //stage changes
  git commit  //commit changes
+ git push --set-upstream origin new_branch_name //set remote tracking branch to the same as local branch
+ // Don’t push directly to master
+
  git push  --set-upstream-to=origin/branch_name //push changes to upstream branch. before this command make sure that upstream set correcly.
  go to github.com and create a pull request
  git pull  // get changes from others, make sure that pulling from origin/master.
