@@ -1,4 +1,4 @@
- typical new work sequence in GIT:
+﻿ typical new work sequence in GIT:
 
  git clone url  //clone repository to your local machine
  git branch     //check the current active branch and list all other branches
@@ -12,4 +12,6 @@
  go to github.com and create a pull request
  git pull  // get changes from others, make sure that pulling from origin/master.
  do git pull periodically to ensure that you are up to date with other’s changes.
+
+//Sreehari changed here for test
 
