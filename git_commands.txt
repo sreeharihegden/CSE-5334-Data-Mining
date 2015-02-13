@@ -1,0 +1,15 @@
+ typical new work sequence in GIT:
+
+ git clone url  //clone repository to your local machine
+ git branch     //check the current active branch and list all other branches
+ git log        //list all work log
+ git status     //list status of current local repo
+ git checkout -b new_branch_name   //create a new branch
+ git push --set-upstream origin data_sumesh  // set upstream branch same as local branch. Don’t push directly to master
+ git add   //stage changes
+ git commit  //commit changes
+ git push  //push changes to upstream branch. before this command make sure that upstream set correcly.
+ go to github.com and create a pull request
+ git pull  // get changes from others, make sure that pulling from origin/master.
+ do git pull periodically to ensure that you are up to date with other’s changes.
+
