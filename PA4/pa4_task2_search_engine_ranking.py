@@ -5,7 +5,12 @@ from pymongo import MongoClient
 
 from bs4 import BeautifulSoup
 from collections import defaultdict, Counter
-
+from bs4 import BeautifulSoup
+from nltk.corpus import stopwords
+from nltk import word_tokenize
+from nltk.tokenize import RegexpTokenizer
+from nltk.stem import PorterStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
 #####end put all your imports 
 
 
@@ -61,15 +66,15 @@ def process_document(file_name, url, index):
     # a_processed: same for a tags
     # body_processed: a string that contains body of the document after processing
 
-    title_processed = soup.title.string
-    h1_processed = [str(header.text) for header in soup.find_all('h1')]
-    h2_processed = [str(header.text) for header in soup.find_all('h2')]
-    h3_processed = [str(header.text) for header in soup.find_all('h3')]
-    h4_processed = [str(header.text) for header in soup.find_all('h4')]
-    h5_processed = [str(header.text) for header in soup.find_all('h5')]
-    h6_processed = [str(header.text) for header in soup.find_all('h6')]
-    a_processed = [str(link.href) for link in soup.SoupStrainer('a')]
-    body_processed = None
+    title_processed = process_text(soup.title.string)
+    h1_processed = process_array([str(header.text) for header in soup.find_all('h1')])
+    h2_processed = process_array([str(header.text) for header in soup.find_all('h2')])
+    h3_processed = process_array([str(header.text) for header in soup.find_all('h3')])
+    h4_processed = process_array([str(header.text) for header in soup.find_all('h4')])
+    h5_processed = process_array([str(header.text) for header in soup.find_all('h5')])
+    h6_processed = process_array([str(header.text) for header in soup.find_all('h6')])
+    a_processed = [link['href'] for link in soup.findAll('a')]
+    body_processed = process_text(soup.body.get_text(" "))
 
     #Insert the processed document into mongodb
     #Do not change 
@@ -110,21 +115,34 @@ def process_array(array):
     processed_array = [process_text(element) for element in array]
     return processed_array
 
+tokenizer = RegexpTokenizer(r'\w+')
+stemmer=PorterStemmer()
+lmtzr = WordNetLemmatizer()
 
 #This function does the necessary text processing of the text
 def process_text(text):
-    processed_text = ""
-
     #####################Task t2d: your code #######################
     #Given the text, do the following:
     #   convert it to lower case
     #   remove all stop words (English)
-    #   remove all punctuation 
+    #   remove all punctuation
     #   stem them using Porter Stemmer
     #   Lemmatize it
     #####################Task t2d: your code #######################
-
-    return processed_text
+    processed_text = text.lower()
+    #print processed_text
+    tokens = word_tokenize(processed_text)
+    #print tokens
+    stop_words_removed = [w for w in tokens if not w in stopwords.words('english')]
+    #print stop_words_removed
+    sentence = ""
+    for word in stop_words_removed:
+        sentence = sentence+" "+word
+    punctuation_removed = tokenizer.tokenize(sentence)
+    sentence = ""
+    for word in punctuation_removed:
+        sentence = sentence+" "+lmtzr.lemmatize(str(stemmer.stem(word)))
+    return sentence
 
 
 #This function determines the vocabulary after processing
@@ -254,6 +272,6 @@ def rank_documents(query):
 
 setup_mongodb()
 #####Uncomment the following functions as needed
-#process_document_corpus("fileNamesToUUID.txt")
+process_document_corpus("fileNamesToUUID.txt")
 #vocabulary = find_corpus_vocabulary("processedFileNamesToUUID.txt")
 #corpus_to_document_vec("vocabulary.txt", "processedFileNamesToUUID.txt", "tf_idf_vector.txt")
