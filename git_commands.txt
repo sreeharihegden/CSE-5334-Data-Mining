@@ -11,3 +11,6 @@
  git push
  // Don’t push directly to master
  go to github.com and create a pull request
+ 
+ //to stash any changes in a file without committing
+ git checkout filename
